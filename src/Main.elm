@@ -4,7 +4,7 @@ import Http
 import Html exposing (Html, div, p, img, h1, text, input)
 import Html.Events exposing (onInput)
 import Browser
-import Json.Decode exposing (Decoder, map7, field, int, string, maybe)
+import Json.Decode exposing (Decoder, map6, field, int, string, maybe)
 import Html.Attributes exposing (src, height, width, alt, style, placeholder)
 import Http exposing (Error(..))
 import Html exposing (Attribute)
@@ -33,7 +33,6 @@ type alias User =
         , followers : Int
         , following : Int
         , avatar_url : String
-        , message: Maybe String
     }
 
 init : () -> (Model, Cmd Msg)
@@ -172,11 +171,10 @@ getUser name =
         
 userDecoder : Decoder User
 userDecoder =
-    map7 User
+    map6 User
         (field "id" int)
         (field "node_id" string)        
         (field "login" string)
         (field "followers" int)
         (field "following" int)
         (field "avatar_url" string)
-        (field "message" (maybe string))
